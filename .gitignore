@@ -1,0 +1,19 @@
+# 
+**/.terraform/
+
+# Igorear arquivos de estado do Terraform
+*.tfstate
+*.tfstate.*
+
+# Arquivos de log e crash
+crash.log
+crash.*.log
+
+# Arquivos de variáveis
+
+*.tfvars
+*.tfvars.json
+
+# Arquivos de plan
+*.tfplan
+*.tfplan.binary
