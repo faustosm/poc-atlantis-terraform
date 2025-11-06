@@ -33,5 +33,42 @@ aws dynamodb create-table \
   --billing-mode PAY_PER_REQUEST
 ```
 
-3. Configurando o backend no Terraform:
+---
 
+Configurando o infracost:
+
+https://github.com/infracost/infracost
+
+
+Passo a passo pra obter o INFRACOST_API_KEY
+
+1️⃣ Acesse o site oficial:
+👉 https://www.infracost.io/
+
+2️⃣ Clique em “Sign Up”
+
+Pode entrar com GitHub, GitLab, Google ou e-mail.
+
+3️⃣ Após logar, acesse o painel:
+👉 https://dashboard.infracost.io/
+
+4️⃣ No menu lateral, vá em “API Keys”
+
+Clique em “Create API key”
+
+Dê um nome (ex: neura-minas-poc)
+
+Ele vai gerar algo como:
+
+```
+ic_12345abcdeFGHIJKLMN
+
+```
+
+5️⃣ Copie essa chave e vá pro seu repositório GitHub →
+Settings → Secrets and variables → Actions → New repository secret
+
+6️⃣ Crie um novo Secret:
+
+Name: INFRACOST_API_KEY
+Value: ic_12345abcdeFGHIJKLMN
