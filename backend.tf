@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "var.bucket_name"
+    bucket = "poc-atlantis-terraform"
     key    = "global/terraform.tfstate"
-    region = "var.aws_region"
+    region = "sa-east-1"
     dynamodb_table = "terraform-locks"
     encrypt = true
   }
