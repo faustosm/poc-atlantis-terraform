@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  atlantis:
+    image: ghcr.io/runatlantis/atlantis:v0.27.3
+    container_name: atlantis
+    user: root  # 👈 executa como root para evitar problemas de permissão
+    ports:
+      - "4141:4141"  # Interface web
+    volumes:
+      - ./atlantis-data:/home/atlantis/.atlantis  # Persistência de dados e configs
+    environment:
+      - ATLANTIS_PORT=4141
+      - ATLANTIS_ALLOW_REPO_CONFIG=true
+      - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
+      - ATLANTIS_GH_USER=faustosm
+      - ATLANTIS_GH_TOKEN=${GITHUB_TOKEN}
+      - ATLANTIS_GH_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
+    restart: unless-stopped
