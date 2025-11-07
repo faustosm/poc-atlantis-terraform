@@ -72,3 +72,6 @@ Settings → Secrets and variables → Actions → New repository secret
 
 Name: INFRACOST_API_KEY
 Value: ic_12345abcdeFGHIJKLMN
+
+---
+
