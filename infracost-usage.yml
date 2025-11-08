@@ -1,0 +1,10 @@
+version: 0.1
+resource_usage:
+  aws_sqs_queue.poc_infracost:
+    monthly_requests: 1000000
+  aws_s3_bucket.meu_bucket:
+    monthly_storage_gb: 100
+    monthly_tier_1_requests: 500000
+  aws_lambda_function.minha_lambda:
+    monthly_requests: 2000000
+    average_request_duration_ms: 200

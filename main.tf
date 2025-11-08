@@ -6,3 +6,15 @@ resource "aws_sqs_queue" "poc_infracost" {
     Project = "POC-Atlantis-Infracost"
   }
 }
+
+resource "aws_cloudwatch_log_group" "poc_logs" {
+  name              = "/aws/fausto/poc-infracost"
+  retention_in_days = 7
+
+  tags = {
+    Project     = "POC-Atlantis-Infracost"
+    Environment = "Dev"
+    Service     = "Logs"
+    Owner       = "Fausto"
+  }
+}
