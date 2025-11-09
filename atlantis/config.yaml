@@ -1,0 +1,5 @@
+# atlantis/config.yaml
+repos:
+  - id: /.*/
+    allow_custom_workflows: true
+    allow_repo_config: true
