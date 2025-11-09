@@ -7,13 +7,13 @@ services:
       - "4141:4141"  # Interface web
     volumes:
       - ./atlantis-data:/home/atlantis/.atlantis
-      - ./atlantis/config.yaml:/home/atlantis/config.yaml
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml
       - ./repos:/repos
     environment:
     - ATLANTIS_PORT=4141
     - ATLANTIS_ALLOW_REPO_CONFIG=true
     - ATLANTIS_ALLOW_CUSTOM_WORKFLOWS=true
-    - ATLANTIS_CONFIG=/home/atlantis/config.yaml
+    - ATLANTIS_CONFIG=/etc/atlantis/config.yaml
     - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
     - ATLANTIS_ATLANTIS_URL=https://pellucid-uncavalier-latricia.ngrok-free.dev
     - ATLANTIS_GH_USER=faustosm
