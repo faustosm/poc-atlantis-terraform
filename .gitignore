@@ -16,4 +16,10 @@ crash.*.log
 
 # Arquivos de plan
 *.tfplan
+<<<<<<< HEAD
 *.tfplan.binary
+=======
+*.tfplan.binary.env
+
+.env
+>>>>>>> infracost-test

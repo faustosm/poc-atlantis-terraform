@@ -75,3 +75,22 @@ Value: ic_12345abcdeFGHIJKLMN
 
 ---
 
+<<<<<<< HEAD
+=======
+Crie um arquivo docker-compose.yml simples com o Atlantis configurado.
+
+📁 Estrutura:
+
+poc-atlantis/
+├── docker-compose.yml
+└── atlantis-data/
+
+---
+
+NGROK:
+
+Forwarding https://pellucid-uncavalier-latricia.ngrok-free.dev -> http://localhost:4141
+
+
+#
+>>>>>>> infracost-test
