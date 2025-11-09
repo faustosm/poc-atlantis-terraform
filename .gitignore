@@ -16,4 +16,4 @@ crash.*.log
 
 # Arquivos de plan
 *.tfplan
-*.tfplan.binary
+*.tfplan.binary.env
