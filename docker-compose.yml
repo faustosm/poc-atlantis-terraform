@@ -7,12 +7,12 @@ services:
       - "4141:4141"
     volumes:
       - ./atlantis-data:/home/atlantis/.atlantis
-      - ./atlantis/config.yaml:/home/atlantis/config.yaml
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml   # 👈 CORRIGIDO
       - ./repos:/repos
     command: >
       bash -c "
       chown -R atlantis:atlantis /home/atlantis/.atlantis &&
-      su -s /bin/bash atlantis -c 'atlantis server --config /home/atlantis/config.yaml'
+      su -s /bin/bash atlantis -c 'atlantis server --config /etc/atlantis/config.yaml'
       "
     environment:
       - ATLANTIS_PORT=4141
