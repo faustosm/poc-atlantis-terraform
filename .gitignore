@@ -1,25 +1,49 @@
-# 
-**/.terraform/
+# === GERAIS ===
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
 
-# Igorear arquivos de estado do Terraform
+# === TERRAFORM ===
 *.tfstate
 *.tfstate.*
-
-# Arquivos de log e crash
-crash.log
-crash.*.log
-
-# Arquivos de variáveis
-
-*.tfvars
-*.tfvars.json
-
-# Arquivos de plan
 *.tfplan
-<<<<<<< HEAD
-*.tfplan.binary
-=======
-*.tfplan.binary.env
+*.tfplan.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform/
+.terraform.lock.hcl
 
-.env
->>>>>>> infracost-test
+# === ATLANTIS ===
+# Arquivos temporários gerados por execuções do Atlantis
+atlantis-data/
+atlantis.yaml.bak
+*.auto.tfvars.json
+*.tfplan.binary
+*.tfplan.binary.*
+
+# === DOCKER ===
+*.pid
+*.seed
+docker-compose.override.yml
+.docker/
+*.tar
+*.gz
+
+# === IDEs / EDITORES ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === SISTEMAS OPERACIONAIS ===
+ehthumbs.db
+Icon?
+desktop.ini
