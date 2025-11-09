@@ -1,19 +1,31 @@
 services:
   atlantis:
-    build: .
+    image: ghcr.io/runatlantis/atlantis:v0.27.3
     container_name: atlantis
-    user: "root"               # garante que git/limpeza funcionem
+    # sobe como root só para ajustar permissões e depois troca para o usuário 'atlantis'
+    user: "root"
     ports:
       - "4141:4141"
     environment:
-      - ATLANTIS_PORT=4141
-      - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
-      - ATLANTIS_ATLANTIS_URL=https://pellucid-uncavalier-latricia.ngrok-free.dev
       - ATLANTIS_GH_USER=faustosm
       - ATLANTIS_GH_TOKEN=${PERSONAL_GITHUB_TOKEN}
       - ATLANTIS_GH_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
-      - ATLANTIS_LOG_LEVEL=debug
+      - ATLANTIS_ATLANTIS_URL=${ATLANTIS_PUBLIC_URL}
+      - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
+      - HOME=/home/atlantis
     volumes:
       - ./atlantis-data:/home/atlantis/.atlantis
       - ./repos:/repos
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml:ro
+    # sem entrypoint externo: tudo feito aqui
+    command: >
+      /bin/sh -lc '
+        echo "[startup] fixing perms..." &&
+        mkdir -p /home/atlantis/.atlantis /repos &&
+        chown -R atlantis:atlantis /home/atlantis /repos || true &&
+        echo "[startup] git safe.directory..." &&
+        sudo -u atlantis git config --global --add safe.directory "*" || true &&
+        echo "[startup] starting atlantis..." &&
+        exec su -s /bin/sh -c "atlantis server --config /etc/atlantis/config.yaml --port 4141" atlantis
+      '
     restart: unless-stopped
