@@ -2,6 +2,8 @@ services:
   atlantis:
     build: .
     container_name: atlantis
+    # Executa como root para evitar qualquer "permission denied" (git, limpeza, etc.)
+    user: "root"
     ports:
       - "4141:4141"
     environment:
@@ -12,6 +14,8 @@ services:
       - ATLANTIS_GH_TOKEN=${PERSONAL_GITHUB_TOKEN}
       - ATLANTIS_GH_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
     volumes:
+      # dados do Atlantis (db bolt, repos clonados, etc.)
       - ./atlantis-data:/home/atlantis/.atlantis
+      # cache/repos local opcional (não é obrigatório, mas mantive como você usava)
       - ./repos:/repos
     restart: unless-stopped

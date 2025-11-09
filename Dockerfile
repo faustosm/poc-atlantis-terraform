@@ -1,28 +1,25 @@
 FROM ghcr.io/runatlantis/atlantis:v0.27.3
 
-# Vamos usar root só na build para preparar permissões
+# Usamos root para evitar qualquer bloqueio de permissão em /usr/bin/git e nos volumes
 USER root
 
-# Definir variáveis de ambiente importantes
 ENV HOME=/home/atlantis
-ENV ATLANTIS_CONFIG_FILE=/etc/atlantis/config.yaml
 ENV ATLANTIS_DATA_DIR=/home/atlantis/.atlantis
+ENV ATLANTIS_CONFIG_FILE=/etc/atlantis/config.yaml
 
-# Criar diretórios e corrigir permissões
-RUN mkdir -p ${ATLANTIS_DATA_DIR} /etc/atlantis /repos && \
-    chown -R 1000:1000 /home/atlantis /etc/atlantis /repos && \
-    chmod -R 755 /home/atlantis /etc/atlantis /repos
+# Prepara diretórios e permissões básicas
+RUN mkdir -p ${ATLANTIS_DATA_DIR} /etc/atlantis /repos \
+ && chmod -R 775 /home/atlantis /etc/atlantis /repos
 
-# Copiar o config.yaml (de fora do container)
+# Copia o config do servidor Atlantis (com allow_custom_workflows)
 COPY atlantis/config.yaml /etc/atlantis/config.yaml
+RUN chmod 644 /etc/atlantis/config.yaml
 
-# Ajustar permissões do arquivo
-RUN chown 1000:1000 /etc/atlantis/config.yaml && chmod 644 /etc/atlantis/config.yaml
-
-# Voltar ao usuário padrão
-USER atlantis
-WORKDIR /home/atlantis
-
-# Executar o Atlantis com o config já configurado
-ENTRYPOINT ["atlantis"]
-CMD ["server", "--config", "/etc/atlantis/config.yaml"]
+# Entry-point: ajusta permissões dos volumes a cada start e sobe o server
+# Sem depender de chown manual no host
+CMD sh -lc '\
+  echo "[startup] fixing perms..." && \
+  mkdir -p ${ATLANTIS_DATA_DIR} /repos && \
+  chmod -R u+rwX,g+rwX ${ATLANTIS_DATA_DIR} /repos || true && \
+  echo "[startup] starting atlantis..." && \
+  exec atlantis server --config /etc/atlantis/config.yaml'
