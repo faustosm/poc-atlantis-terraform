@@ -18,3 +18,13 @@ resource "aws_cloudwatch_log_group" "poc_logs" {
     Owner       = "Fausto"
   }
 }
+
+resource "aws_instance" "meu_teste" {
+  ami           = "ami-005e54dee72cc1d00"
+  instance_type = "t3.micro"
+
+  tags = {
+    Environment = "Dev"
+    Service     = "EC2-Test"
+  }
+}
