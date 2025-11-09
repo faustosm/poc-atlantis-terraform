@@ -10,3 +10,13 @@ projects:
     autoplan:
       when_modified: ["*.tf", "*.tfvars"]
       enabled: true
+
+workflows:
+  default:
+    plan:
+      steps:
+        - run: terraform init -reconfigure
+        - run: terraform plan -no-color -lock=false
+    apply:
+      steps:
+        - run: terraform apply -auto-approve -no-color
