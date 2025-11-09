@@ -7,7 +7,7 @@ services:
       - "4141:4141"
     volumes:
       - ./atlantis-data:/home/atlantis/.atlantis
-      - ./atlantis/config.yaml:/etc/atlantis/config.yaml   # 👈 CORRIGIDO
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml:ro
       - ./repos:/repos
     command: >
       bash -c "
