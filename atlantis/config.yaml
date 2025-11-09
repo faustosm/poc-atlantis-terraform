@@ -1,5 +1,9 @@
-# atlantis/config.yaml
+# atlantis/config.yaml (server-side)
 repos:
   - id: /.*/
-    allow_custom_workflows: true
     allow_repo_config: true
+    allow_custom_workflows: true
+    # Permite que o repositório use a chave `workflow:` no atlantis.yaml
+    allowed_overrides:
+      - workflow
+      - apply_requirements   # (opcional, mas comum permitir)
