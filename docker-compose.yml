@@ -2,13 +2,10 @@ services:
   atlantis:
     build: .
     container_name: atlantis
-    user: "1000:1000"
     ports:
       - "4141:4141"
     environment:
       - ATLANTIS_PORT=4141
-      - ATLANTIS_ALLOW_REPO_CONFIG=true
-      - ATLANTIS_ALLOW_CUSTOM_WORKFLOWS=true
       - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
       - ATLANTIS_ATLANTIS_URL=https://pellucid-uncavalier-latricia.ngrok-free.dev
       - ATLANTIS_GH_USER=faustosm
