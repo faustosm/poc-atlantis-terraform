@@ -1,9 +1,8 @@
-version: "3.8"
-
 services:
   atlantis:
     build: .
     container_name: atlantis
+    user: "1000:1000"
     ports:
       - "4141:4141"
     environment:
@@ -19,4 +18,3 @@ services:
       - ./atlantis-data:/home/atlantis/.atlantis
       - ./repos:/repos
     restart: unless-stopped
-  
