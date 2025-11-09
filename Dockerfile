@@ -1,20 +1,21 @@
-# Dockerfile
 FROM ghcr.io/runatlantis/atlantis:v0.27.3
 
 USER root
 
-# Define explicitamente o diretório home do usuário atlantis
+# Garante variáveis corretas
 ENV HOME=/home/atlantis
 ENV USER=atlantis
 ENV ATLANTIS_DATA_DIR=/home/atlantis/.atlantis
+ENV ATLANTIS_CONFIG_FILE=/etc/atlantis/config.yaml
 
-# Cria as pastas necessárias com as permissões corretas
+# Garante estrutura e permissões
 RUN mkdir -p ${ATLANTIS_DATA_DIR}/repos /etc/atlantis && \
     chown -R 1000:1000 /home/atlantis /etc/atlantis && \
     chmod -R 755 /home/atlantis /etc/atlantis
 
-# Copia o arquivo de configuração do Atlantis
+# Copia o config.yaml
 COPY atlantis/config.yaml /etc/atlantis/config.yaml
+RUN chown 1000:1000 /etc/atlantis/config.yaml && chmod 644 /etc/atlantis/config.yaml
 
 USER atlantis
 WORKDIR /home/atlantis

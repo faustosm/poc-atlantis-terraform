@@ -17,4 +17,5 @@ services:
     volumes:
       - ./atlantis-data:/home/atlantis/.atlantis
       - ./repos:/repos
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml:ro
     restart: unless-stopped
