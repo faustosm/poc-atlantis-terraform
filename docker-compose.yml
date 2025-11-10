@@ -1,19 +1,21 @@
 services:
   atlantis:
-    image: ghcr.io/runatlantis/atlantis:v0.27.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local/atlantis-wrapper:0.27.3
     container_name: atlantis
-    user: root
+    user: "root" # mantém root para evitar problemas de permissão
     ports:
-      - "4141:4141"  # Interface web
-    volumes:
-      - ./atlantis-data:/home/atlantis/.atlantis  # Persistência de dados e configs
+      - "4141:4141"
     environment:
-    - ATLANTIS_PORT=4141
-    - ATLANTIS_ALLOW_REPO_CONFIG=true
-    - ATLANTIS_ALLOW_CUSTOM_WORKFLOWS=true
-    - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
-    - ATLANTIS_ATLANTIS_URL=https://pellucid-uncavalier-latricia.ngrok-free.dev
-    - ATLANTIS_GH_USER=faustosm
-    - ATLANTIS_GH_TOKEN=${PERSONAL_GITHUB_TOKEN}
-    - ATLANTIS_GH_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
+      - ATLANTIS_ATLANTIS_URL=https://pellucid-uncavalier-latricia.ngrok-free.dev
+      - ATLANTIS_GH_USER=faustosm
+      - ATLANTIS_GH_TOKEN=${PERSONAL_GITHUB_TOKEN}
+      - ATLANTIS_GH_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
+      - ATLANTIS_REPO_ALLOWLIST=github.com/faustosm/poc-atlantis-terraform
+      - CLEAN_WORKDIR=1            # limpa workdirs no boot (pode remover depois)
+    volumes:
+      - ./atlantis-data:/home/atlantis/.atlantis
+      - ./atlantis/config.yaml:/etc/atlantis/config.yaml:ro
     restart: unless-stopped

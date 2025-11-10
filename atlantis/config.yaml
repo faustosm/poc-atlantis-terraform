@@ -1,0 +1,9 @@
+# atlantis/config.yaml
+repos:
+  - id: /.*/
+    allow_repo_config: true
+    allow_custom_workflows: true
+    allowed_overrides:
+      - apply_requirements
+      - workflow
+      - delete_source_branch_on_merge

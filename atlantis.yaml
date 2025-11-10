@@ -1,28 +1,13 @@
-<<<<<<< HEAD
-=======
 version: 3
-
->>>>>>> infracost-test
-automerge: false
-delete_source_branch_on_merge: false
-
 projects:
-  - name: poc-atlantis
+  - name: root
     dir: .
-    workspace: default
     autoplan:
-      when_modified: ["*.tf", "*.tfvars"]
       enabled: true
-<<<<<<< HEAD
-=======
-
-workflows:
-  default:
-    plan:
-      steps:
-        - run: terraform init -reconfigure
-        - run: terraform plan -no-color -lock=false
-    apply:
-      steps:
-        - run: terraform apply -auto-approve -no-color
->>>>>>> infracost-test
+      when_modified:
+        - "**/*.tf"
+        - "**/*.tfvars"
+        - "modules/**/**.tf"
+        - "backend.tf"
+        - "variables.tf"
+    workflow: server_tf  # usa o workflow definido no SERVIDOR
